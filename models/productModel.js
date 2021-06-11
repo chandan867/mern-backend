@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const ReviewSchema = mongoose.Schema(
+const reviewSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -23,7 +23,7 @@ const ProductSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: 'User',
     },
     name: {
       type: String,
