@@ -10,30 +10,7 @@ const colors = require("colors");
 dotenv.config();
 ConnectDb();
 //console.log(products)
-const importData = async () => {
-  try {
-    await Order.deleteMany();
-    await Product.deleteMany();
-    await User.deleteMany();
 
-    const createdUser = await User.insertMany(users);
-    const adminUser = createdUser[0]._id;
-    const sampleProducts = products.map((product) => {
-      return {
-        ...product,
-        user: adminUser
-      };
-    });
-   await Product.insertMany(sampleProducts);
-  
-    console.log("data imported".green);
-    
-    process.exit();
-  } catch (error) {
-    console.error(`${error}`.red.inverse);
-    process.exit(1);
-  }
-};
 
 const destroyData = async () => {
   try {
@@ -49,8 +26,4 @@ const destroyData = async () => {
   }
 };
 
-if (process.argv[2] === "-d") {
-  destroyData();
-} else {
-  importData();
-}
+destroyData();
