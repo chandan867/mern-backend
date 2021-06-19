@@ -1,31 +1,31 @@
 const express=require('express');
 const ConnectDb = require('./config/db');
-const products = require('./data/products');
+//const products = require('./data/products');
 const cors=require('cors')
 const dotenv=require('dotenv');
-const colors=require('colors')
+const colors=require('colors');
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
+
+
 
 
 dotenv.config()
 const app=express()
 app.use(express.json())
 //app.use(cors())
+// app.use((err,req,res)=>{
+
+//error handler
+// })
 
 ConnectDb();
 
 app.get('/',(req,res)=>{
     res.send("hey ram");
 })
-app.get('/api/products',(req,res)=>
-{
-   res.send(products)
-})
-
-app.get('/api/products/:id',(req,res)=>
-{
-  const product=products.find((p)=>p._id===req.params.id)
-  res.send(product);
-})
+app.use('/api/products',productRoutes)
+app.use('/api/users',userRoutes)
 
 
 const port=process.env.PORT ||8000;
