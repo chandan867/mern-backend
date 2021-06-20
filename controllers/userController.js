@@ -86,4 +86,38 @@ const  getUserProfile= asyncHandler(async(req,res) =>
 })
 
 
-module.exports={authUser,getUserProfile,registerUser};
+//@desc-update user
+//route-PUT/api/users/profile
+//access-private
+const  updateUserProfile= asyncHandler(async(req,res) => 
+{
+  // console.log("Success")
+  const user=await User.findById(req.user._id)
+  if(user)
+  {
+    user.name=req.body.name ||user.name
+    user.email=req.body.email || user.email
+    if(req.body.password)
+    {
+      user.password=req.body.password
+    }
+    const updatedUser=await user.save()
+    res.json({
+      _id:updatedUser._id,
+      name:updatedUser.name,
+      email:updatedUser.email,
+      isAdmin:updatedUser.isAdmin,
+     token:generateToken(updatedUser._id)
+
+    })
+    
+    
+  }
+  else{
+    res.status(404)
+    res.send('user NOt found')
+  }
+})
+
+
+module.exports={authUser,getUserProfile,registerUser,updateUserProfile};
