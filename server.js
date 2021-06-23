@@ -6,6 +6,8 @@ const dotenv=require('dotenv');
 const colors=require('colors');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
 
 
 
@@ -26,6 +28,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api/products',productRoutes)
 app.use('/api/users',userRoutes)
+app.use('/api/orders',orderRoutes)
 
 
 const port=process.env.PORT ||8000;
